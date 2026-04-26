@@ -12,7 +12,7 @@ interface CoinProps {
   
 }
 
- const Coin({
+const Coin = ({
   size = 180,
   rotate = 0,
   skewX = 0,
