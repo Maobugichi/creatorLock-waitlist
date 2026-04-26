@@ -12,7 +12,7 @@ interface CoinProps {
   
 }
 
-export default function Coin({
+ const Coin({
   size = 180,
   rotate = 0,
   skewX = 0,
@@ -21,7 +21,7 @@ export default function Coin({
   opacity = 0.5,
   blur = 0,
   className,
-}: CoinProps) {
+}: CoinProps) => {
   return (
     <div
       className={`absolute ${className}`}
@@ -42,3 +42,5 @@ export default function Coin({
     </div>
   );
 }
+
+export default Coin
