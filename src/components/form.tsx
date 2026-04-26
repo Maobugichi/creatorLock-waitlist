@@ -1,13 +1,15 @@
-"use client"; 
+"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { waitlistSchema, WaitlistInput } from "@/lib/validations";
+import { motion, AnimatePresence } from "motion/react";
 
 export default function WaitlistForm() {
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [hovered, setHovered] = useState(false);
 
   const {
     register,
@@ -20,7 +22,6 @@ export default function WaitlistForm() {
 
   const onSubmit = async (data: WaitlistInput) => {
     setServerError("");
-
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/waitlist`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -60,17 +61,40 @@ export default function WaitlistForm() {
           placeholder="your@email.com"
           className="w-full h-full rounded-xl p-3 pr-36 border border-gray-700 bg-transparent focus:outline-none focus:border-[#FF5C00]/70 placeholder:text-gray-500"
         />
-        <button
+        <motion.button
           type="submit"
           disabled={isSubmitting}
-          className="absolute right-1 top-1 bottom-1 bg-[#FF5C00] px-4 rounded-lg text-sm font-medium whitespace-nowrap disabled:opacity-60 transition-opacity"
+          onHoverStart={() => setHovered(true)}
+          onHoverEnd={() => setHovered(false)}
+          className="absolute right-1 top-1 bottom-1 px-4 rounded-lg text-sm font-medium whitespace-nowrap disabled:opacity-60 overflow-hidden"
+          style={{ backgroundColor: "#FF5C00" }}
         >
-          {isSubmitting ? "Joining..." : "Join the waitlist"}
-        </button>
+         
+          <motion.span
+            aria-hidden
+            className="absolute inset-0 bg-white"
+            initial={{ scaleX: 0, originX: 0 }}
+            animate={{ scaleX: hovered ? 1 : 0 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+          />
+
+         
+          <motion.span
+            className="relative z-10"
+            animate={{ color: hovered ? "#FF5C00" : "#ffffff" }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+          >
+            {isSubmitting ? "Joining..." : "Join the waitlist"}
+          </motion.span>
+        </motion.button>
       </div>
 
-      {errors.email && <p className="error mt-2 text-sm">{errors.email.message}</p>}
-      {serverError && <p className="error mt-2 text-sm">{serverError}</p>}
+      {errors.email && (
+        <p className="error mt-2 text-sm">{errors.email.message}</p>
+      )}
+      {serverError && (
+        <p className="error mt-2 text-sm">{serverError}</p>
+      )}
     </form>
-      );
+  );
 }

@@ -1,65 +1,56 @@
+"use client";
+
 import WaitlistForm from "./form";
 import Image from "next/image";
 import Coin from "./ui/coin";
+import { useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { COINS } from "@/constant/hero.constant";
+
+
 
 const Hero = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  const springConfig = { stiffness: 60, damping: 20, mass: 1 };
+  const smoothX = useSpring(rawX, springConfig);
+  const smoothY = useSpring(rawY, springConfig);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect();
+      rawX.set((e.clientX - rect.left - rect.width / 2) / rect.width);
+      rawY.set((e.clientY - rect.top - rect.height / 2) / rect.height);
+    };
+
+    const handleMouseLeave = () => {
+      rawX.set(0);
+      rawY.set(0);
+    };
+
+    section.addEventListener("mousemove", handleMouseMove);
+    section.addEventListener("mouseleave", handleMouseLeave);
+    return () => {
+      section.removeEventListener("mousemove", handleMouseMove);
+      section.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [rawX, rawY]);
+
   return (
-    <section className="min-h-[clamp(600px,90vh,900px)] flex items-center justify-center bg-neutral-950 text-white relative overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="min-h-[clamp(600px,90vh,900px)] flex items-center justify-center bg-neutral-950 text-white relative overflow-hidden"
+    >
+      {COINS.map((coin, i) => (
+        <ParallaxCoin key={i} {...coin} smoothX={smoothX} smoothY={smoothY} />
+      ))}
 
-     
-      <Coin
-        size={200}
-        rotate={10}
-        skewX={-5}
-        skewY={-10}
-        scale={0.8}
-        opacity={0.55}
-        blur={0}
-        position={{ top: "8%", left: "10%" }}
-      />
-      <Coin
-        size={210}
-        rotate={30}
-        skewX={-10}
-        skewY={2}
-        scale={1.0}
-        opacity={0.55}
-        blur={0.4}
-        position={{ bottom: "10%", left: "-3%" }}
-      />
-
-      <Coin
-        size={165}
-        rotate={18}
-        skewX={-8}
-        skewY={6}
-        scale={0.8}
-        opacity={0.45}
-        blur={0.8}
-        position={{ top: "3%", right: "-2%" }}
-      />
-      <Coin
-        size={220}
-        rotate={-8}
-        skewX={14}
-        skewY={-6}
-        scale={1.15}
-        opacity={0.72}
-        blur={0}
-        position={{ top: "35%", right: "-5%" }}
-      />
-      <Coin
-        size={185}
-        rotate={-14}
-        skewX={10}
-        skewY={-8}
-        scale={0.92}
-        opacity={0.58}
-        blur={0.3}
-        position={{ bottom: "4%", right: "25%" }}
-      />
-
-     
       <div className="max-w-3xl relative z-10">
         <h1 className="text-[clamp(2rem,5vw,3.75rem)] text-center font-bold mb-4">
           Your knowledge.<br />
@@ -91,6 +82,40 @@ const Hero = () => {
       </div>
     </section>
   );
+};
+
+interface ParallaxCoinProps {
+  size: number;
+  rotate: number;
+  skewX: number;
+  skewY: number;
+  scale: number;
+  opacity: number;
+  blur: number;
+  depth: number;
+  className: string;
+  smoothX: ReturnType<typeof useSpring>;
+  smoothY: ReturnType<typeof useSpring>;
 }
 
-export default Hero
+const ParallaxCoin = ({
+  smoothX,
+  smoothY,
+  depth,
+  className,
+  ...coinProps
+}: ParallaxCoinProps) => {
+  const x = useTransform(smoothX, (v: number) => v * depth * 800);
+  const y = useTransform(smoothY, (v: number) => v * depth * 800);
+
+  return (
+    <motion.div
+      className={`absolute ${className}`}
+      style={{ x, y, width: coinProps.size, height: coinProps.size }}
+    >
+      <Coin {...coinProps} />
+    </motion.div>
+  );
+};
+
+export default Hero;

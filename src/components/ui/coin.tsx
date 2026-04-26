@@ -8,12 +8,8 @@ interface CoinProps {
   scale?: number;
   opacity?: number;
   blur?: number;
-  position: {
-    top?: string;
-    bottom?: string;
-    left?: string;
-    right?: string;
-  };
+  className?:string;
+  
 }
 
 export default function Coin({
@@ -24,13 +20,13 @@ export default function Coin({
   scale = 1,
   opacity = 0.5,
   blur = 0,
-  position,
+  className,
 }: CoinProps) {
   return (
     <div
-      className="absolute"
+      className={`absolute ${className}`}
       style={{
-        ...position,
+      
         transform: `rotate(${rotate}deg) skewX(${skewX}deg) skewY(${skewY}deg) scale(${scale})`,
         opacity,
         filter: blur ? `blur(${blur}px)` : undefined,
