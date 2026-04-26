@@ -1,4 +1,4 @@
-"use client"; // tells Next.js this runs in the browser
+"use client"; 
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -49,25 +49,28 @@ export default function WaitlistForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="form relative max-w-md rounded-xl h-14 mx-auto">
-    
-      <input
-        {...register("email")}
-        type="email"
-        placeholder="your@email.com"
-        className="input w-full  h-full rounded-xl focus:outline-ring-300 placeholder:p-3 p-3 border py-1 focus:outline-1 focus:outline-[#FF5C00]/70 border-gray-700"
-      />
-      {errors.email && (
-        <p className="error">{errors.email.message}</p>
-      )}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="relative w-[90%] max-w-[clamp(280px,80vw,448px)] mx-auto"
+    >
+      <div className="relative h-14">
+        <input
+          {...register("email")}
+          type="email"
+          placeholder="your@email.com"
+          className="w-full h-full rounded-xl p-3 pr-36 border border-gray-700 bg-transparent focus:outline-none focus:border-[#FF5C00]/70 placeholder:text-gray-500"
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="absolute right-1 top-1 bottom-1 bg-[#FF5C00] px-4 rounded-lg text-sm font-medium whitespace-nowrap disabled:opacity-60 transition-opacity"
+        >
+          {isSubmitting ? "Joining..." : "Join the waitlist"}
+        </button>
+      </div>
 
-      {serverError && <p className="error">{serverError}</p>}
-
-      <button  type="submit" disabled={isSubmitting} className="btn bg-[#FF5C00] absolute py-4 px-3 w-[150px] right-0 rounded-xl">
-        {isSubmitting ? "Joining..." : "Join the waitlist"}
-      </button>
-
-    
+      {errors.email && <p className="error mt-2 text-sm">{errors.email.message}</p>}
+      {serverError && <p className="error mt-2 text-sm">{serverError}</p>}
     </form>
-  );
+      );
 }

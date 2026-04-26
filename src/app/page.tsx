@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import Nav from "@/components/nav";
-import Image from "next/image";
+import { CardStack } from "../components/card/CardStack";
 
 export default function Home() {
   return (
@@ -8,6 +8,7 @@ export default function Home() {
       <main >
         <Nav/>
         <Hero/>
+        <CardStack/>
       </main>
     </div>
   );
