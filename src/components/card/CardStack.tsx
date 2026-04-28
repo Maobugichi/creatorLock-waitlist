@@ -12,7 +12,7 @@ const iconMap = {
 
 export const CardStack = () => {  
     return(
-        <div className="grid place-items-center grid-cols-1  md:grid-cols-3 max-w-6xl gap-5 pb-10 mx-auto ">
+        <div className="grid place-items-center grid-cols-1  md:grid-cols-3 max-w-6xl bg-neutral-950 gap-5 pb-10 mx-auto ">
             {
                 cardDetails.map(detail => (
                     <Card 

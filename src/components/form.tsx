@@ -52,7 +52,7 @@ export default function WaitlistForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="relative w-[90%] max-w-[clamp(280px,80vw,448px)] mx-auto"
+      className="relative w-[90%]  max-w-[clamp(280px,80vw,448px)] mx-auto"
     >
       <div className="relative h-14">
         <input
