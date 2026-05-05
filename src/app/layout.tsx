@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, Inter, Space_Mono } from "next/font/google";
 import "./globals.css";
+import Providers from "./provider";
 
 
 const syne = Syne({
@@ -41,7 +42,7 @@ export default function RootLayout({
       lang="en"
       className={`h-full antialiased`}
     >
-      <body className={`${syne.variable} ${inter.variable} ${spaceMono.variable}`}>{children}</body>
+      <body className={`${syne.variable} ${inter.variable} ${spaceMono.variable}`}><Providers>{children}</Providers></body>
     </html>
   );
 }
