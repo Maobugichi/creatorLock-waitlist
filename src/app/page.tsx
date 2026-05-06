@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import Nav from "@/components/nav";
-import { CardStack } from "../../components/card/CardStack";
+import { CardStack } from "../components/card/CardStack";
 
 export default function Home() {
   return (
