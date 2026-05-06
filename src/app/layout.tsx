@@ -29,8 +29,12 @@ export const metadata: Metadata = {
   title: "CreatorLock — Join the Waitlist",
   description: "Get early access to CreatorLock.",
   images: ["/og-icon.png"], 
-  }
+  },
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
+
 
 export default function RootLayout({
   children,
@@ -41,20 +45,6 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className={`${syne.variable} ${inter.variable} ${spaceMono.variable}`}>
         <Providers>{children}</Providers>
-       
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function () {
-                  var script = document.createElement('script');
-                  script.src = 'https://cdn.jsdelivr.net/npm/eruda';
-                  document.body.appendChild(script);
-                  script.onload = function () { eruda.init(); };
-                })();
-              `,
-            }}
-          />
-        
       </body>
     </html>
   );
