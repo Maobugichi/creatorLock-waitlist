@@ -13,3 +13,13 @@ export const joinWaitlist = async (data: WaitlistInput) => {
   );
   return res.data;
 };
+
+
+export const getWaitlistCount = async (): Promise<number> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/waitlist/count`, {
+    next: { revalidate: 60 },
+  });
+  if (!res.ok) return 0;
+  const data = await res.json();
+  return data.data.count as number;
+};

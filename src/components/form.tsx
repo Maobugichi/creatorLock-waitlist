@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { waitlistSchema, WaitlistInput } from "@/lib/validations";
 import { motion } from "motion/react";
 import Image from "next/image";
-import { useWaitlist, getErrorMessage } from "@/hooks/useWaitlist";
+import { useWaitlist, getErrorMessage } from "../hooks/useWaitlist";
 import { Check } from "@phosphor-icons/react";
 
 
@@ -39,21 +39,71 @@ export default function WaitlistForm() {
 
 
   if (submitted) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.96, y: 8 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="mx-auto w-[90%] max-w-md rounded-2xl p-6 text-center 
-                   bg-[#0b0b0c] border border-white/5"
-      >
-          <div className="relative mx-auto mb-4 w-14 h-14 flex items-center justify-center">
-          <div className="absolute inset-0 rounded-full bg-[#FF5C00]/20 blur-xl" />
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.94, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="relative mx-auto w-[90%] max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#0A0A0B]/90 p-7 text-center backdrop-blur-2xl"
+    >
+      {/* ambient glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,92,0,0.15),transparent_55%)]" />
 
-          <div className="relative w-12 h-12 flex items-center justify-center rounded-full bg-[#FF5C00]/10 border border-[#FF5C00]/30">
-            <Check size={20} weight="bold" className="text-[#FF5C00]" />
+      {/* floating gradient orb */}
+      <div className="absolute -top-10 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full bg-[#FF5C00]/10 blur-3xl animate-pulse" />
+
+      {/* subtle grid */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <div className="relative z-10">
+        
+        {/* icon */}
+        <motion.div
+          initial={{ scale: 0.7, rotate: -8, opacity: 0 }}
+          animate={{ scale: 1, rotate: 0, opacity: 1 }}
+          transition={{
+            delay: 0.1,
+            type: "spring",
+            stiffness: 260,
+            damping: 18,
+          }}
+          className="relative mx-auto mb-5 flex h-16 w-16 items-center justify-center"
+        >
+          {/* rotating ring */}
+          <div className="absolute inset-0 rounded-full border border-[#FF5C00]/30" />
+
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{
+              repeat: Infinity,
+              duration: 10,
+              ease: "linear",
+            }}
+            className="absolute inset-[-6px] rounded-full border-t border-[#FF5C00]/40 border-r border-transparent border-b border-transparent border-l border-transparent"
+          />
+
+          {/* core */}
+          <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-[#FF5C00]/10 border border-[#FF5C00]/25 backdrop-blur-md">
+            <Check
+              size={20}
+              weight="bold"
+              className="text-[#FF5C00]"
+            />
           </div>
-        </div>
-        <h2 className="text-xl font-semibold text-white">
+        </motion.div>
+
+        {/* heading */}
+        <h2 className="text-2xl font-semibold tracking-tight text-white">
           You’re l
           <span>
             <Image
@@ -63,23 +113,34 @@ export default function WaitlistForm() {
               height={40}
               style={{
                 display: "inline",
-                width: "0.7em",
-                height: "0.7em",
+                width: "0.72em",
+                height: "0.72em",
                 verticalAlign: "middle",
               }}
             />
           </span>
-          cked in 
+          cked in
         </h2>
 
-        <p className="text-gray-400 text-sm mt-2">
+        {/* subtext */}
+        <p className="mx-auto mt-3 max-w-sm text-sm leading-7 text-neutral-400">
+          Your access request has been secured.  
           We’ll notify{" "}
-          <span className="text-white">{getValues("email")}</span> when your
-          spot unlocks.
+          <span className="text-white font-medium">
+            {getValues("email")}
+          </span>{" "}
+          when CreatorLock opens its vault.
         </p>
-      </motion.div>
-    );
-  }
+
+        {/* mini badge */}
+        <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-neutral-300">
+          <div className="h-1.5 w-1.5 rounded-full bg-[#FF5C00] animate-pulse" />
+          Early creator access reserved
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
   return (
     <motion.form

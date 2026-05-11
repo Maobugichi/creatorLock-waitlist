@@ -32,3 +32,30 @@ h1, h2, h3, h4, h5, h6, .display {
 .mono, .price, .ref-code, .promo {
   font-family: var(--font-mono), monospace;
 }
+
+@keyframes scan {
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: translate(-120%, -50%);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(220%, -50%);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate(420%, -50%);
+    opacity: 0;
+  }
+}

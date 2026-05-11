@@ -1,13 +1,16 @@
-import Hero from "@/components/Hero";
+import Hero from "@/components/hero/index"
 import Nav from "@/components/nav";
 import { CardStack } from "../components/card/CardStack";
+import { getWaitlistCount } from "@/lib/api/waitlist";
 
-export default function Home() {
+export default async function Home() {
+  const count = await getWaitlistCount();
   return (
     <div >
       <main >
         <Nav/>
-        <Hero/>
+      
+        <Hero initialCount={count} />;
         <CardStack/>
       </main>
     </div>
