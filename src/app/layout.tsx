@@ -43,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className={`${syne.variable} ${inter.variable} ${spaceMono.variable}`}>
+      <body className={`${syne.variable} ${inter.variable} ${spaceMono.variable} bg-neutral-950`}>
         <Providers>{children}</Providers>
       </body>
     </html>
