@@ -13,13 +13,13 @@ const WaitlistSuccess = ({ email }: WaitlistSuccessProps) => (
     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     className="relative mx-auto w-[90%] max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#0A0A0B]/90 p-7 text-center backdrop-blur-2xl"
   >
-    {/* ambient glow */}
+   
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,92,0,0.15),transparent_55%)]" />
 
-    {/* floating orb */}
+    
     <div className="absolute -top-10 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full bg-[#FF5C00]/10 blur-3xl animate-pulse" />
 
-    {/* grid */}
+   
     <div
       className="absolute inset-0 opacity-[0.03]"
       style={{
@@ -48,7 +48,7 @@ const WaitlistSuccess = ({ email }: WaitlistSuccessProps) => (
       </motion.div>
 
       <h2 className="text-2xl font-semibold tracking-tight text-white">
-        You`&apos;`re l
+        You&apos;re l
         <span>
           <Image
             src="/og-icon.svg"
@@ -62,7 +62,7 @@ const WaitlistSuccess = ({ email }: WaitlistSuccessProps) => (
       </h2>
 
       <p className="mx-auto mt-3 max-w-sm text-sm leading-7 text-neutral-400">
-        Your access request has been secured. We`&apos;`ll notify{" "}
+        Your access request has been secured. We&apos;ll notify{" "}
         <span className="font-medium text-white">{email}</span>{" "}
         when CreatorLock opens its vault.
       </p>
