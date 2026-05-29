@@ -1,8 +1,8 @@
 export const COINS = [
   {
-    size: 200, rotate: 10, skewX: -5, skewY: -10, scale: 0.8,
+    size: 300, rotate: 10, skewX: 10, skewY: -10, scale: 0.8,
     opacity: 0.55, blur: 0, depth: 0.03,
-    className: "top-[8%] left-[10%] hidden md:block",
+    className: "top-[8%] left-[0%] hidden md:block",
   },
   {
     size: 210, rotate: 30, skewX: -10, skewY: 2, scale: 1.0,

@@ -34,7 +34,7 @@ const Coin = ({
       }}
     >
       <Image
-        src="/coinIllustra.png"
+        src="/coin.png"
         alt="coin"
         width={size}
         height={size}
